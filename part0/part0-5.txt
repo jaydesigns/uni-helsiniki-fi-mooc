@@ -1,0 +1,17 @@
+//part0.5
+
+title Single Page App Diagram
+
+
+Client->Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa
+Server->Client: HTML Code
+Client->Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+Server->Client: main.css
+Client->Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+Server->Client: spa.js
+note over Client:
+JS code renders notes
+as lists in ul and
+will add new note
+when user submits form
+end note

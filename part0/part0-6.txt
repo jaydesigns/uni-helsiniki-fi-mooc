@@ -1,0 +1,31 @@
+//part0.6
+
+title Single Page App New Note Diagram
+
+note over Client:
+when user clicks submit btn
+preventDefault() to prevent 
+from refreshing page
+and submitting GET request
+end note
+
+note over Client:
+Event handler push new note
+to array
+end note
+
+note over Client:
+redraw list minus
+first node
+end note
+
+note over Client:
+send new note to server
+end note
+
+
+Client->Server: https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+Server->Client: HTML Code Status 201
+note over Client:
+console log response message
+end note

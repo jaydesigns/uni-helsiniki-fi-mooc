@@ -1,0 +1,24 @@
+//part0.4
+
+title New Note Diagram
+
+Client->Server: HTTP POST https://studies.cs.helsinki.fi/exampleapp/new_note
+Server->Client: HTTP Status Code 302
+note over Client:
+Status Code 302 means the
+Server asks the browser to
+do a new HTTP GET request 
+to the address defined in 
+the header's Location
+end note
+Client->Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/notes
+Server->Client: HTML Code
+Client->Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.css
+Server->Client: main.css
+Client->Server: HTTP GET https://studies.cs.helsinki.fi/exampleapp/main.js
+Server->Client: main.js
+note over Client:
+browser executes js-code
+that requests JSON data
+from server 
+end note

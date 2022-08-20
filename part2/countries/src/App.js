@@ -5,7 +5,7 @@ import axios from 'axios'
 const Weather = ({capital}) => {
 
   //
-  //I couldn't set the initial value to the axios response,
+  //I couldn't set the initial value to the API call,
   //so I created a mock object as a placeholder
   //
   const [ weatherData, setWeatherData ] = useState({main:{temp:30},wind:{speed:30},weather:[{icon:'01d'}]})
@@ -16,7 +16,7 @@ const Weather = ({capital}) => {
     .get(`https://api.openweathermap.org/data/2.5/weather?q=${capital}&appid=${api_key}&units=metric`).then(response=>{
       setWeatherData(response.data)
     })
-  },[capital])
+  })
 
   const iconSource = `http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`
 

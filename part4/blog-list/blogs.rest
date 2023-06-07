@@ -1,0 +1,12 @@
+GET http://localhost:8080/api/blogs
+
+###
+
+POST http://localhost:8080/api/blogs
+Content-Type: application/json
+
+{
+    "title": "Test",
+    "author": "Jay Indino",
+    "url": "https://jayindino.com/test"
+}

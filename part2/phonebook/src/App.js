@@ -67,14 +67,28 @@ const App = () => {
     const updateContact = (name) => {
       notifyMsg('changed','correct')
       const contactToUpdate = persons.find(p=>p.name===name)
-      const url = `http://localhost:3001/persons/${contactToUpdate.id}`
+      const url = `/api/persons/${contactToUpdate.id}`
       const updatedObj={...contactToUpdate, number:contactNumber}
       window.confirm('The name already exists in your phonebook. Do you want to update it instead?')
       ? axios.put(url,updatedObj)
       .then(response=>{
         setPersons(persons.map(p=>p.name!==name?p:response.data))
       })
-      : console.log('wow');
+      .catch(error => {
+        console.log(error)
+        setAlertMessage(`Error: ${error.response.data.error}`)
+        setTimeout(()=>{
+          setAlertMessage(null)
+        },5000)
+        setClassName('error')
+      })
+      : (() => {
+        setAlertMessage(`Contact already exists.`)
+        setTimeout(()=>{
+          setAlertMessage(null)
+        },5000)
+        setClassName('error')
+      })();
     }
 
     const createContact = (obj) => {
@@ -83,6 +97,14 @@ const App = () => {
       .create(obj)
       .then(response => {
         setPersons(persons.concat(response))
+      })
+      .catch(error => {
+        console.log(error)
+        setAlertMessage(`Error: ${error.response.data.error}`)
+        setTimeout(()=>{
+          setAlertMessage(null)
+        },5000)
+        setClassName('error')
       })
     }
 
@@ -122,24 +144,26 @@ const App = () => {
   const handleFilterChange = (e) => {
     setFilterKey(e.target.value)
   }
-//
-//OVER HERE 
-//We're trying to filter the names to be shown
+  //
+  //OVER HERE 
+  //We're trying to filter the names to be shown
   const contactsToShow = showAll
   ? persons
-  : persons.filter(person => person.name.toLowerCase().includes(filterKey))
+  : persons.filter(person => person.name.toLowerCase().includes(filterKey.toLowerCase()))
 
+
+  console.log(filterKey,contactsToShow);
   return (
     <div>
       <h2>Phonebook</h2>
       <Notification msg={alertMessage} classify={className}/>
+      <div>
+        Filter: <input value={filterKey} onChange={handleFilterChange}/>
+      </div>
+      <div>
+        <button onClick={()=>setShowAll(!showAll)}>Add filter</button>
+      </div>
       <form onSubmit={addContact}>
-        <div>
-          Filter: <input value={filterKey} onChange={handleFilterChange}/>
-        </div>
-        <div>
-          <button onClick={()=>setShowAll(!showAll)}>Add filter</button>
-        </div>
         <h2>Add Contact</h2>
         <div>
           name: <input value={newName} onChange={handleInputChange}/>
